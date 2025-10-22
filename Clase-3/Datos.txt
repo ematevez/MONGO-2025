@@ -1,0 +1,115 @@
+db.collection.replaceOne()    Reemplaza totalmente un documento.
+
+crear un documento con _id _otrogato
+
+
+db.libros.insertMany([
+...   // 10 con cantidad 1
+...   {
+...     _id: 5,
+...     titulo: "Cien años de soledad",
+...     autor: "Gabriel García Márquez",
+...     editorial: ["Sudamericana"],
+...     precio: 35,
+...     cantidad: 1
+...   },
+...   {
+...     _id: 6,
+...     titulo: "Rayuela",
+...     autor: "Julio Cortázar",
+...     editorial: ["Alfaguara"],
+...     precio: 40,
+...     cantidad: 1
+...   },
+...   {
+...     _id: 7,
+...     titulo: "1984",
+...     autor: "George Orwell",
+...     editorial: ["Planeta"],
+...     precio: 45,
+...     cantidad: 1
+...   },
+...   {
+...     _id: 8,
+...     titulo: "Ficciones",
+...     autor: "Borges",
+...     editorial: ["Emecé"],
+...     precio: 30,
+...     cantidad: 1
+...   },
+...   {
+...     _id: 9,
+...     titulo: "Don Quijote",
+...     autor: "Miguel de Cervantes",
+...     editorial: ["Cátedra"],
+...     precio: 50,
+...     cantidad: 1
+...   },
+...   {
+...     _id: 10,
+...     titulo: "El Principito",
+...     autor: "Antoine de Saint-Exupéry",
+...     editorial: ["Salamandra"],
+...     precio: 20,
+...     cantidad: 1
+...   },
+...   {
+...     _id: 11,
+...     titulo: "Crimen y Castigo",
+...     autor: "Dostoyevski",
+...     editorial: ["Alianza"],
+...     precio: 55,
+...     cantidad: 1
+...   },
+...   {
+...     _id: 12,
+...     titulo: "El túnel",
+...     autor: "Ernesto Sabato",
+...     editorial: ["Planeta"],
+...     precio: 25,
+...     cantidad: 1
+...   },
+...   {
+...     _id: 13,
+...     titulo: "Ulises",
+...     autor: "James Joyce",
+...     editorial: ["Debolsillo"],
+...     precio: 60,
+...     cantidad: 1
+...   },
+...   {
+...     _id: 14,
+...     titulo: "La metamorfosis",
+...     autor: "Franz Kafka",
+...     editorial: ["Penguin"],
+...     precio: 15,
+...     cantidad: 1
+...   },
+...
+...   // 40 con cantidad aleatoria
+...   ...Array.from({ length: 40 }, (_, i) => ({
+...     _id: i + 15,
+...     titulo: `Libro ${i + 1}`,
+...     autor: `Autor ${i + 1}`,
+...     editorial: [ "Editorial A", "Editorial B" ],
+...     precio: Math.floor(Math.random() * 100) + 10, // entre 10 y 109
+...     cantidad: Math.floor(Math.random() * 30) + 2 // entre 2 y 31
+...   }))
+... ]);
+
+
+Hoja 74
+
+db.nombres.insertMany([
+  { "nombre": "Juan123" },
+{ "nombre": "maria_87" },
+{ "nombre": "Carlos89" },
+{ "nombre": "nina2023" }]
+)
+
+
+db.nombres.insertOne(
+  { "nombre": "Pepe", "edad": 18, "casa": "JoJo" })
+
+
+db.nombres.find({"nombre" : { $regex: /^Jo/ }})

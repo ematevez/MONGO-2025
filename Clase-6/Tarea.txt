@@ -1,0 +1,11 @@
+Tomar el scrip1.js -> funcional
+
+
+1) Enviar los resultados de las búsquedas a una base de datos de mongo
+2) Hacer un menú con servidor lindo usar CSS o similar (contenga CRUD)
+3) Ver si de traerme la mayor cantidad de productos y guardarlos a granel
+
+Opcional
+
+4) Medir el tiempo y consumo de memoria de las consultas
+5) Pueden usar el modelado que quiera! 

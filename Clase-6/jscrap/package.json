@@ -1,0 +1,1 @@
+{"type":"module","name":"jscrap","version":"1.0.0","main":"index.js","scripts":{"test":"echo \"Error: no test specified\" && exit 1"},"keywords":[],"author":"","license":"ISC","description":"","dependencies":{"fs-extra":"^11.3.2","mongoose":"^8.19.2","puppeteer":"^24.25.0"}}
