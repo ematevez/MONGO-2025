@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestión Dinámica de Colecciones</title>
+  <style>
+    table, th, td { border: 1px solid black; border-collapse: collapse; padding: 8px; }
+    table { width: 100%; margin-top: 20px; }
+    input, textarea, select, button { margin: 5px 0; padding: 6px; width: 100%; }
+    form { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Base de Datos Dinámica</h1>
+
+  <!-- Selección de colección -->
+  <label for="coleccion">Seleccionar colección:</label>
+  <select id="coleccion">
+    <option value="animales">Animales</option>
+    <option value="animals">Animals</option>
+    <option value="plantas">Plantas</option>
+    <option value="vehiculos">Vehículos</option>
+  </select>
+  <button onclick="verColeccion()">Ver Colección</button>
+
+  <!-- Tabla de resultados -->
+  <table id="tabla" style="display: none;">
+    <thead id="cabecera"><tr></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <!-- Formulario para agregar -->
+  <h2>Agregar registro (en formato JSON)</h2>
+  <form id="formulario">
+    <textarea name="json" placeholder='{"nombre": "León", "edad": 8}' rows="5" required></textarea>
+    <button type="submit">Agregar Registro</button>
+  </form>
+
+  <script>
+    function verColeccion() {
+      const col = document.getElementById('coleccion').value;
+      fetch(`/api/coleccion/${col}`)
+        .then(res => res.json())
+        .then(data => {
+          const tabla = document.getElementById('tabla');
+          const cabecera = document.getElementById('cabecera').querySelector('tr');
+          const cuerpo = tabla.querySelector('tbody');
+          cuerpo.innerHTML = '';
+          cabecera.innerHTML = '';
+
+          if (data.length === 0) {
+            tabla.style.display = 'none';
+            return;
+          }
+
+          // Crear cabecera desde claves del primer objeto
+          Object.keys(data[0]).forEach(key => {
+            if (key !== "__v") cabecera.innerHTML += `<th>${key}</th>`;
+          });
+
+          // Crear filas
+          data.forEach(doc => {
+            const fila = document.createElement('tr');
+            Object.keys(doc).forEach(key => {
+              if (key !== "__v") fila.innerHTML += `<td>${doc[key]}</td>`;
+            });
+            cuerpo.appendChild(fila);
+          });
+
+          tabla.style.display = 'table';
+        })
+        .catch(err => console.error('Error al cargar:', err));
+    }
+
+    // Agregar nuevo registro
+    document.getElementById('formulario').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const col = document.getElementById('coleccion').value;
+      const jsonData = this.json.value;
+
+      try {
+        const datos = JSON.parse(jsonData);
+        fetch(`/api/coleccion/${col}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(datos)
+        })
+        .then(res => res.json())
+        .then(resp => {
+          alert(resp.mensaje);
+          verColeccion(); // refrescar tabla
+          this.reset();
+        });
+      } catch (err) {
+        alert("⚠ Formato JSON inválido. Por ejemplo: { \"nombre\": \"León\" }");
+      }
+    });
+  </script>
+</body>
+</html>

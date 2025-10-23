@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Animales</title>
+  <style>
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid black; padding: 10px; text-align: left; }
+    form { margin-top: 30px; }
+    input, select { margin: 5px 0; padding: 5px; width: 100%; }
+    button { padding: 10px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+  <h1>Gestión de Animales</h1>
+
+  <!-- Botón para ver animales -->
+  <button onclick="verAnimales()">Ver Animales</button>
+
+  <!-- Tabla -->
+  <table id="tabla" style="display: none;">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Especie</th>
+        <th>Hábitat</th>
+        <th>Alimentación</th>
+        <th>Edad</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <!-- Formulario para agregar animal -->
+  <h2>Agregar Nuevo Animal</h2>
+  <form id="formularioAnimal">
+    <input type="text" name="nombre" placeholder="Nombre" required>
+    <input type="text" name="especie" placeholder="Especie" required>
+    <input type="text" name="habitat" placeholder="Hábitat" required>
+    <input type="text" name="alimentacion" placeholder="Alimentación" required>
+    <input type="number" name="edad" placeholder="Edad" required>
+    <button type="submit">Agregar Animal</button>
+  </form>
+
+  <script>
+    function verAnimales() {
+      fetch('/animales')
+        .then(res => res.json())
+        .then(data => {
+          const tbody = document.querySelector('#tabla tbody');
+          tbody.innerHTML = ''; // Limpiar tabla
+          data.forEach(animal => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${animal.nombre}</td>
+              <td>${animal.especie}</td>
+              <td>${animal.habitat}</td>
+              <td>${animal.alimentacion}</td>
+              <td>${animal.edad}</td>
+            `;
+            tbody.appendChild(row);
+          });
+          document.getElementById('tabla').style.display = 'table';
+        })
+        .catch(err => console.error('Error al cargar:', err));
+    }
+
+    // Agregar animal
+    document.getElementById('formularioAnimal').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+      const nuevoAnimal = {};
+      formData.forEach((value, key) => {
+        nuevoAnimal[key] = key === 'edad' ? Number(value) : value;
+      });
+
+      fetch('/animales', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(nuevoAnimal)
+      })
+      .then(res => res.json())
+      .then(respuesta => {
+        alert(respuesta.mensaje);
+        this.reset();
+        verAnimales(); // Refrescar tabla
+      })
+      .catch(err => console.error('Error al guardar:', err));
+    });
+  </script>
+</body>
+</html>
