@@ -1,0 +1,11 @@
+
+======================================================================
+PRODUCTO: LECHE
+======================================================================
+
+Nombre:       Leche Parcialmente Descremada Liviana Larga Vida LA SERENISIMA 1l
+Precio:       $2.482,00
+Supermercado: Coto Digital
+Link:         https://www.cotodigital.com.ar/sitios/cdigi/productos/leche-parcialmente-descremada-liviana-larga-vida-la-serenisima-1l/_/R-00253104-00253104-200%3F
+Imagen:       https://static.cotodigital3.com.ar/sitios/fotos/large/00253100/00253104.jpg
+======================================================================

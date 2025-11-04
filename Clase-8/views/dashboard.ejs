@@ -1,0 +1,10 @@
+<h1>Dashboard</h1>
+<a href="/admin/agregar">Agregar Producto</a>
+<ul>
+    <% productos.forEach(p => { %>
+    <li>
+        <%= p.nombre %> - $<%= p.precio %>
+        <a href="/admin/editar/<%= p._id %>">Editar</a>
+    </li>
+    <% }) %>
+</ul>

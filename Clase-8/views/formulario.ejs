@@ -1,0 +1,6 @@
+<form action="" method="POST">
+   <input type="text" name="nombre" value="<%= producto ? producto.nombre : '' %>" placeholder="Nombre">
+   <input type="number" name="precio" value="<%= producto ? producto.precio : '' %>" placeholder="Precio">
+   <textarea name="descripcion"><%= producto ? producto.descripcion : '' %></textarea>
+   <input type="submit" value="Guardar">
+</form>
